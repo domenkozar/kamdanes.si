@@ -28,6 +28,8 @@ pages = [
   "www.ch0.org/events",
   "GalaHala/events",
   "gromka/events",
+  "HostelCelica/events",
+  "stacafe/events",
   "jallajalla.akcmetelkova/events",
   "klubk4/events",
   "PrulcekBar/events",
