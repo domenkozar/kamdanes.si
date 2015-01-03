@@ -8,8 +8,6 @@
 {-# LANGUAGE TemplateHaskell            #-}
 
 
-module GetEvents where
-
 import System.Locale
 import Data.Time.Format
 import Data.Aeson.Lens
