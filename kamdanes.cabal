@@ -9,20 +9,17 @@ category:            Web
 build-type:          Simple
 cabal-version:       >=1.8
 
-executable kamdanes
-  main-is:             Main.hs
-  -- other-modules:       
+executable kamdanes-serve
+  main-is: Main.hs
   build-depends:     base
                      , wai
                      , warp
-                     , wreq
                      , http-types
                      , hspec-wai
                      , resourcet
                      , scotty
                      , aeson
                      , configurator
-                     , lens-aeson
                      , text
                      , persistent
                      , persistent-template
@@ -32,3 +29,22 @@ executable kamdanes
                      , wai-middleware-static
                      , wai-extra
                      , time
+
+executable kamdanes-getevents
+  main-is: GetEvents.hs
+  build-depends:     base
+                     , wreq
+                     , resourcet
+                     , aeson
+                     , configurator
+                     , lens-aeson
+                     , lens
+                     , text
+                     , persistent
+                     , persistent-template
+                     , persistent-postgresql
+                     , monad-logger
+                     , transformers
+                     , time
+                     , bytestring
+                     , old-locale

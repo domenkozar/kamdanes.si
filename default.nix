@@ -8,8 +8,10 @@ cabal.mkDerivation (self: {
    buildDepends = [ scotty wai warp text persistent monadLogger waiMiddlewareStatic
                     persistentPostgresql persistentTemplate basePrelude aeson
                     hspecWai wreq lensAeson configurator ]
-                    ++ lib.optionals lib.inNixShell [ reserve hlint];
+                    ++ lib.optionals lib.inNixShell [ reserve hlint ];
    buildTools = [ cabalInstall ];
+   isExecutable = true;
+   isLibrary = false;
    postInstall = ''
      cp -R static $out/
    '';
