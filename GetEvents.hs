@@ -26,7 +26,28 @@ import Models
 import Util
 
 
-pages = ["zootobacna/events", "klubtiffany/events"]
+pages = [
+  "zootobacna/events",
+  "klubtiffany/events",
+  "www.ch0.org/events",
+  "GalaHala/events",
+  "gromka/events",
+  "jallajalla.akcmetelkova/events",
+  "klubk4/events",
+  "PrulcekBar/events",
+  "menzaprikoritu/events",
+  --"lp.bar.1/events",
+  "458331344305413/events",
+  "750720064944757/events",
+  "443566369067600/events",
+  "PrulcekBar/events",
+  "noplacelikeorto/events",
+  "pritlicje/events",
+  "barzmauc/events",
+  "KlubDaktari/events",
+  "Fclub.si/events",
+  "irishpubljubljana.si/events"
+  ]
 
 
 constructEvent :: Text -> IO Event
