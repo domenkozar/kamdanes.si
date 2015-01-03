@@ -1,6 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Control.Monad.IO.Class  (liftIO)
+import Data.Time.Clock
+import Data.Time.Format
 import Data.Aeson (object, (.=))
 import qualified Database.Persist as P
 import qualified Database.Persist.Postgresql as Postgresql
@@ -31,7 +33,8 @@ root = do
 events :: ActionM ()
 events = do
   connStr <- liftIO $ getOption "kamdanes.connstr"
-  events <- liftIO $ runDB connStr $ P.selectList [] [ P.Asc EventTime ]
+  time <- liftIO getCurrentTime
+  events <- liftIO $ runDB connStr $ P.selectList [EventTime P.>. (addUTCTime (-21600) time)] [ P.Asc EventTime ]
   json $ object [ "events" .= events ] 
 
 main = scotty 3000 $ do
