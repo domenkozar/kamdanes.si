@@ -22,11 +22,11 @@ app = do
     events
   get "/"
     root
-  notFound $ do
+  notFound $
     json ("404 Not Found" :: String)
 
 root :: ActionM ()
-root = do
+root =
   file "./static/index.html"
 
 -- TODO: get events in corrent time span
@@ -34,7 +34,7 @@ events :: ActionM ()
 events = do
   connStr <- liftIO $ getOption "kamdanes.connstr"
   time <- liftIO getCurrentTime
-  events <- liftIO $ runDB connStr $ P.selectList [EventTime P.>. (addUTCTime (-21600) time)] [ P.Asc EventTime ]
+  events <- liftIO $ runDB connStr $ P.selectList [EventTime P.>. addUTCTime (-21600) time] [ P.Asc EventTime ]
   json $ object [ "events" .= events ] 
 
 main = scotty 3000 $ do

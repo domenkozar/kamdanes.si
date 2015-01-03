@@ -1,11 +1,7 @@
-{-# LANGUAGE EmptyDataDecls             #-}
 {-# LANGUAGE FlexibleContexts           #-}
 {-# LANGUAGE GADTs                      #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MultiParamTypeClasses      #-}
 {-# LANGUAGE OverloadedStrings          #-}
-{-# LANGUAGE QuasiQuotes                #-}
-{-# LANGUAGE TemplateHaskell            #-}
 
 
 import System.Locale
@@ -56,7 +52,7 @@ constructEvent id = do
     accesstoken <- getOption"kamdanes.accesstoken" :: IO String
     r <- liftIO $ Wreq.get $ "https://graph.facebook.com/v2.2/" ++ id_ ++ "?access_token=" ++ accesstoken
     let body = r ^. responseBody
-        eventid = (read id_ :: Int)
+        eventid = read id_ :: Int
         title = unpack $ body ^. key "name" . _String
         location = unpack $ body ^. key "location" . _String
         time = readTime defaultTimeLocale "%FT%T+0100" $ unpack $ body ^. key "start_time" . _String
@@ -71,11 +67,9 @@ fetchEvent url = do
     time <- getCurrentTime
     let timeInt = read (formatTime defaultTimeLocale "%s" time) :: Int
     accesstoken <- getOption "kamdanes.accesstoken" :: IO String
-    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ (show timeInt) ++ "&until=" ++ (show $ timeInt + 86400) 
-    let ids = r ^. responseBody ^.. key "data" . _Array . traverse . to (\o -> (o ^?! key "id" . _String))
-    events <- mapM constructEvent ids
-    return events
-
+    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ show timeInt ++ "&until=" ++ show $ timeInt + 86400 
+    let ids = r ^. responseBody ^.. key "data" . _Array . traverse . to (\o -> o ^?! key "id" . _String)
+    mapM constructEvent ids
 
 
 main :: IO ()
@@ -84,5 +78,5 @@ main = do
     runDB connStr $ do
         runMigration migrateAll
         events <- liftIO $ mapM fetchEvent pages
-        mapM insert $ concat events
+        mapM_ insert $ concat events
         liftIO $ print "Done."
