@@ -50,3 +50,12 @@ Make sure you create `kamdanes.cfg` with following contents:
         },
       ]
     }
+
+# TODO
+
+- Google Analytics
+- handle paid events
+- use async http://hackage.haskell.org/package/async-2.0.2/docs/Control-Concurrent-Async.html#v%3amapConcurrently
+- https://hackage.haskell.org/package/raven-haskell-scotty
+- SPDY
+- remove JSX Transformer in production
