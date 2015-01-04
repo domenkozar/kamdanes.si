@@ -10,6 +10,7 @@ build-type:          Simple
 cabal-version:       >=1.8
 
 executable kamdanes-serve
+  Hs-Source-Dirs: src
   main-is: Main.hs
   build-depends:     base
                      , wai
@@ -31,6 +32,7 @@ executable kamdanes-serve
                      , time
 
 executable kamdanes-getevents
+  Hs-Source-Dirs: src
   main-is: GetEvents.hs
   build-depends:     base
                      , wreq
