@@ -48,10 +48,9 @@ pages = [
   ]
 
 
-constructEvent :: Text -> IO Event
-constructEvent id = do
-    let id_ = unpack id
-    accesstoken <- getOption"kamdanes.accesstoken" :: IO String
+constructEvent :: String -> IO Event
+constructEvent id_ = do
+    accesstoken <- getOption "kamdanes.accesstoken" :: IO String
     r <- liftIO $ Wreq.get $ "https://graph.facebook.com/v2.2/" ++ id_ ++ "?access_token=" ++ accesstoken
     let body = r ^. responseBody
         eventid = read id_ :: Int
@@ -67,11 +66,11 @@ constructEvent id = do
 fetchEvent :: String -> IO [Event]
 fetchEvent url = do
     time <- getCurrentTime
-    let timeInt = read (formatTime defaultTimeLocale "%s" time) :: Int
     accesstoken <- getOption "kamdanes.accesstoken" :: IO String
-    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ (show timeInt) ++ "&until=" ++ (show $ timeInt + 86400) 
+    let timeInt = read (formatTime defaultTimeLocale "%s" time) :: Int
+    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ show timeInt ++ "&until=" ++ show (timeInt + 86400) 
     let ids = r ^. responseBody ^.. key "data" . _Array . traverse . to (\o -> o ^?! key "id" . _String)
-    mapM constructEvent ids
+    mapM (constructEvent . unpack) ids
 
 
 main :: IO ()
@@ -79,6 +78,6 @@ main = do
     connStr <- getOption "kamdanes.connstr"
     runDB connStr $ do
         runMigration migrateAll
-        events <- liftIO $ mapM fetchEvent pages
-        mapM_ insert $ concat events
-        liftIO $ print "Done."
+        events <- fmap concat $ liftIO $ mapM fetchEvent pages
+        mapM_ insert events
+        liftIO $ putStrLn $ "Fetched " ++ show (length events) ++ " events."

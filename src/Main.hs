@@ -29,7 +29,6 @@ root :: ActionM ()
 root =
   file "./static/index.html"
 
--- TODO: get events in corrent time span
 events :: ActionM ()
 events = do
   connStr <- liftIO $ getOption "kamdanes.connstr"
@@ -41,5 +40,5 @@ main = scotty 3000 $ do
   connStr <- liftIO $ getOption "kamdanes.connstr"
   liftIO $ runDB connStr $ Postgresql.runMigration migrateAll
   middleware logStdoutDev
-  middleware $ staticPolicy (noDots >-> hasPrefix "static/")
+  middleware $ staticPolicy hasPrefix "static/"
   app
