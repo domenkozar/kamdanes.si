@@ -69,7 +69,7 @@ fetchEvent url = do
     time <- getCurrentTime
     let timeInt = read (formatTime defaultTimeLocale "%s" time) :: Int
     accesstoken <- getOption "kamdanes.accesstoken" :: IO String
-    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ show timeInt ++ "&until=" ++ show $ timeInt + 86400 
+    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ (show timeInt) ++ "&until=" ++ (show $ timeInt + 86400) 
     let ids = r ^. responseBody ^.. key "data" . _Array . traverse . to (\o -> o ^?! key "id" . _String)
     mapM constructEvent ids
 

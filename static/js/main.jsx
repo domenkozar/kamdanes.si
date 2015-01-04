@@ -3,7 +3,6 @@ var el = document.getElementById('events'),
   componentDidMount: function() {
     jQuery.timeago.settings.allowFuture = true;
     jQuery(document).ready(function() {
-      console.log($(".timeago"));
       $(".timeago").timeago();
     });
   },
@@ -18,7 +17,7 @@ var el = document.getElementById('events'),
         } else {
             priceTag = "";
         }
-      return (
+    return (
         <li className="list-group-item">
           <div className="media">
             <a className="media-left" href={e.link}>
@@ -33,8 +32,14 @@ var el = document.getElementById('events'),
             </div>
           </div>  
         </li>
-      );
-    });  
+    );
+    });
+    
+    if (this.props.events.length === 0) {
+        eventNodes = (
+            <li className="text-center"><i>Ni dogodkov.</i></li>
+        );
+    }
 
     return (
      <ul className="list-group" style={mainStyle}>
