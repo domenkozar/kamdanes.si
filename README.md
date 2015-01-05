@@ -12,7 +12,7 @@ Make sure you create `kamdanes.cfg` with following contents:
 
 - $ bash <(curl https://nixos.org/nix/install)
 - $ nix-shell
-- $ reserve Main.hs
+- $ reserve
 
 # Deployment
 
