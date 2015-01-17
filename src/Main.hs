@@ -40,5 +40,5 @@ main = scotty 3000 $ do
   connStr <- liftIO $ getOption "kamdanes.connstr"
   liftIO $ runDB connStr $ Postgresql.runMigration migrateAll
   middleware logStdoutDev
-  middleware $ staticPolicy hasPrefix "static/"
+  middleware $ staticPolicy (noDots >-> hasPrefix "static/")
   app
