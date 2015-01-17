@@ -53,8 +53,7 @@ Make sure you create `kamdanes.cfg` with following contents:
 
 # TODO
 
-- handle paid events
-- use async http://hackage.haskell.org/package/async-2.0.2/docs/Control-Concurrent-Async.html#v%3amapConcurrently
 - https://hackage.haskell.org/package/raven-haskell-scotty
+- webpack
+- remove JSX Transformer in production (https://www.npmjs.com/package/reactify, https://www.npmjs.com/package/uglifyify)
 - SPDY
-- remove JSX Transformer in production
