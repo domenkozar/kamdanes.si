@@ -11,8 +11,7 @@ var el = document.getElementById('events'),
   },
   handleClick: function(event) {
     var state = this.state.showDescription,
-        id = parseInt(event.target.id);
-    console.log(event);
+        id = parseInt(event.currentTarget.id);
     if (state[id]) {
        state[id] = false;
     } else {
