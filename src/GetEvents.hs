@@ -60,7 +60,7 @@ constructEvent id_ = do
         time = readTime defaultTimeLocale "%FT%T+0100" $ unpack $ body ^. key "start_time" . _String
         description = pack $ replaceRN $ unpack $ body ^. key "description" . _String
         link = "https://www.facebook.com/events/" ++ id_
-        image = "https://graph.facebook.com/v2.2/" ++ id_ ++ "/picture?access_token=" ++ accesstoken
+        image = "https://graph.facebook.com/v2.2/" ++ id_ ++ "/picture?type=large&access_token=" ++ accesstoken
     return $ Event eventid title location time description link (Just image) Nothing
 
 
