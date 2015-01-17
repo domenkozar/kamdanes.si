@@ -6,29 +6,55 @@ var el = document.getElementById('events'),
       $(".timeago").timeago();
     });
   },
+  getInitialState: function() {
+    return {showDescription: {}};
+  },
+  handleClick: function(event) {
+    var state = this.state.showDescription,
+        id = parseInt(event.target.id);
+    console.log(event);
+    if (state[id]) {
+       state[id] = false;
+    } else {
+       state[id] = true;
+    }
+    this.setState({showDescription: state});
+  },
   render: function() {
-    var mainStyle = {
+    var self = this,
+        mainStyle = {
       maxWidth: '600px',
       margin: '5px auto'
+    },  mediaBodyStyle = {
+      width: '100%'
     }, eventNodes = this.props.events.map(function (e) {
-        var priceTag;
+        var priceTag, descriptionNode, buttonNode;
         if (e.price) {
             priceTag = <i>Vstopnina: {e.price} EUR</i>;
         } else {
             priceTag = "";
-        }
+        };
+       descriptionNode = self.state.showDescription[e.id] ? <div dangerouslySetInnerHTML={{__html: e.description}} /> : "";
+       buttonNode = self.state.showDescription[e.id] ? "Skrij opis" : "Opis dogodka";
     return (
-        <li className="list-group-item">
+        <li className="list-group-item" key={e.id}>
           <div className="media">
             <a className="media-left" href={e.link}>
-              <img src={e.image} alt="Event image" width="64px" />
+              <img src={e.image} alt="Event image" width="128px" />
             </a>
-            <div className="media-body">
-              <h4 className="media-heading"><a href={e.link}>[{e.location}] {e.title}</a></h4>
-              <i>Začetek: <abbr className="timeago badge" title={e.time}>{e.time}</abbr></i>
-              <br />
-              {priceTag}
-              <p><div dangerouslySetInnerHTML={{__html: e.description}} /></p>
+            <div className="media-body" style={mediaBodyStyle}>
+              <h4 className="media-heading"><a href={e.link}>
+                {e.title}
+              </a></h4>
+              <h4><span className="label label-danger">{e.location}</span>&nbsp;</h4>
+              <h5>
+                <i className="">Začetek: <abbr className="timeago" title={e.time}>{e.time}</abbr></i>
+                <span className="label label-primary">{priceTag}</span>
+              </h5>
+              {descriptionNode}
+              <button className="btn btn-primary" id={e.id} onClick={self.handleClick}>
+                <span className="glyphicon glyphicon-info-sign"></span> &nbsp;{buttonNode} 
+              </button>
             </div>
           </div>  
         </li>
