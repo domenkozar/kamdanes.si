@@ -26,7 +26,8 @@ app = do
     json ("404 Not Found" :: String)
 
 root :: ActionM ()
-root =
+root = do
+  setHeader "Content-Type" "text/html"
   file "./static/index.html"
 
 events :: ActionM ()
