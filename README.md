@@ -53,6 +53,7 @@ Make sure you create `kamdanes.cfg` with following contents:
 
 # TODO
 
+- move static out of store
 - https://hackage.haskell.org/package/raven-haskell-scotty
 - webpack
 - remove JSX Transformer in production (https://www.npmjs.com/package/reactify, https://www.npmjs.com/package/uglifyify)

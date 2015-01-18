@@ -33,6 +33,7 @@ pages = [
   "jallajalla.akcmetelkova/events",
   "klubk4/events",
   "PrulcekBar/events",
+  "cvetlicarna.mediapark.5/events",
   "klubmonokel/events",
   "menzaprikoritu/events",
   --"lp.bar.1/events",
