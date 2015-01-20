@@ -33,6 +33,8 @@ pages = [
   "jallajalla.akcmetelkova/events",
   "klubk4/events",
   "PrulcekBar/events",
+  "www.kinosiska.si/events",
+  "centralnapostajaljubljana/events",
   "cvetlicarna.mediapark/events",
   "klubmonokel/events",
   "menzaprikoritu/events",
