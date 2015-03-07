@@ -26,6 +26,7 @@ pages = [
   "443566369067600/events",
   "458331344305413/events",
   "750720064944757/events",
+  "139277969451827/events", -- stara mestna elektrarna
   "barzmauc/events",
   "centralnapostajaljubljana/events",
   "cvetlicarna.mediapark/events",
@@ -39,14 +40,15 @@ pages = [
   "klubk4/events",
   "klubmonokel/events",
   "klubtiffany/events",
-  --"lp.bar.1/events",
+  "lp.bar.1/events",
+  "cirkus.klub/events",
   "menzaprikoritu/events",
   "noplacelikeorto/events",
   "pritlicje/events",
   "PrulcekBar/events",
   "PrulcekBar/events",
   "stacafe/events",
-  "www.ch0.org/events",
+  --"www.ch0.org/events", https://www.facebook.com/groups/63207442694/
   "www.kinosiska.si/events",
   "zootobacna/events"
   ]
