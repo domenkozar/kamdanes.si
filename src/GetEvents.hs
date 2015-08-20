@@ -3,9 +3,8 @@
 {-# LANGUAGE MultiParamTypeClasses      #-}
 {-# LANGUAGE OverloadedStrings          #-}
 
-
-import System.Locale
-import Data.Time.Format
+import System.TimeIt
+import Data.Time.Format (readTime, formatTime, defaultTimeLocale)
 import Data.Aeson.Lens
 import Data.Time.Clock
 import Data.Text (unpack, pack)
@@ -74,13 +73,13 @@ fetchEvent url = do
     time <- getCurrentTime
     accesstoken <- getOption "kamdanes.accesstoken" :: IO String
     let timeInt = read (formatTime defaultTimeLocale "%s" time) :: Int
-    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ show timeInt ++ "&until=" ++ show (timeInt + 86400) 
+    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ show timeInt ++ "&until=" ++ show (timeInt + 86400)
     let ids = r ^. responseBody ^.. key "data" . _Array . traverse . to (\o -> o ^?! key "id" . _String)
     mapM (constructEvent . unpack) ids
 
 
 main :: IO ()
-main = do
+main = timeIt $ do
     connStr <- getOption "kamdanes.connstr"
     runDB connStr $ do
         runMigration migrateAll

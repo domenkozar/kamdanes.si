@@ -49,4 +49,4 @@ executable kamdanes-getevents
                      , transformers
                      , time
                      , bytestring
-                     , old-locale
+                     , timeit
