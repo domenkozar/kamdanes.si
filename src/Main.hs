@@ -35,11 +35,12 @@ events = do
   connStr <- liftIO $ getOption "kamdanes.connstr"
   time <- liftIO getCurrentTime
   events <- liftIO $ runDB connStr $ P.selectList [EventTime P.>. addUTCTime (-21600) time] [ P.Asc EventTime ]
-  json $ object [ "events" .= events ] 
+  json $ object [ "events" .= events ]
 
-main = scotty 3000 $ do
+main = do
   connStr <- liftIO $ getOption "kamdanes.connstr"
   liftIO $ runDB connStr $ Postgresql.runMigration migrateAll
-  middleware logStdoutDev
-  middleware $ staticPolicy (noDots >-> hasPrefix "static/")
-  app
+  scotty 3000 $ do
+    middleware logStdoutDev
+    middleware $ staticPolicy (noDots >-> hasPrefix "static/")
+    app
