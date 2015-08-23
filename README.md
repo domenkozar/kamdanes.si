@@ -14,6 +14,14 @@ Make sure you create `kamdanes.cfg` with following contents:
 - $ nix-shell
 - $ reserve
 
+# Bootstrap
+
+To bootstrap default.ini
+
+- $ nix-shell -p haskellPackages.cabal2nix
+- $ cabal2nix --shell . > default.nix
+
+
 # Deployment
 
 - $ nix-build
