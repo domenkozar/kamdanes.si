@@ -21,6 +21,9 @@ To bootstrap default.ini
 - $ nix-shell -p haskellPackages.cabal2nix
 - $ cabal2nix --shell . > default.nix
 
+# Running tests
+
+- $ cabal test
 
 # Deployment
 

@@ -9,14 +9,36 @@ category:            Web
 build-type:          Simple
 cabal-version:       >=1.8
 
+library
+  Exposed-modules:     Util
+  default-language:    Haskell2010
+  hs-source-dirs:      src
+  build-depends:       base
+                       , wai
+                       , warp
+                       , http-types
+                       , resourcet
+                       , scotty
+                       , aeson
+                       , configurator
+                       , text
+                       , persistent
+                       , persistent-template
+                       , persistent-postgresql
+                       , monad-logger
+                       , transformers
+                       , wai-middleware-static
+                       , wai-extra
+                       , time
+
 executable kamdanes-serve
   Hs-Source-Dirs: src
   main-is: Main.hs
+  default-language: Haskell2010
   build-depends:     base
                      , wai
                      , warp
                      , http-types
-                     , hspec-wai
                      , resourcet
                      , scotty
                      , aeson
@@ -34,6 +56,7 @@ executable kamdanes-serve
 executable kamdanes-getevents
   Hs-Source-Dirs: src
   main-is: GetEvents.hs
+  default-language: Haskell2010
   build-depends:     base
                      , wreq
                      , resourcet
@@ -50,3 +73,14 @@ executable kamdanes-getevents
                      , time
                      , bytestring
                      , timeit
+
+test-suite spec
+  main-is:             Spec.hs
+  type:                exitcode-stdio-1.0
+  default-language:    Haskell2010
+  hs-source-dirs:      test
+  build-depends:       base
+                       , time
+                       , hspec
+                       , kamdanes
+  GHC-options:         -Wall -threaded -fno-warn-orphans
