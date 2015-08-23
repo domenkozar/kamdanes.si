@@ -17,7 +17,7 @@ import Database.Persist
 import Database.Persist.TH
 import Database.Persist.Postgresql
 import qualified Database.Persist.Sql as Sql
-import Control.Monad.Logger    (runStderrLoggingT)
+import Control.Monad.Logger    (runNoLoggingT)
 import Control.Monad.IO.Class  (liftIO)
 
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
@@ -35,6 +35,6 @@ Event json
 
 
 runDB :: ConnectionString -> Sql.SqlPersistM a -> IO a
-runDB connStr commands = 
-  liftIO $ runStderrLoggingT $ withPostgresqlPool connStr 10 $ \pool ->
+runDB connStr commands =
+  liftIO $ runNoLoggingT $ withPostgresqlPool connStr 10 $ \pool ->
     liftIO $ Sql.runSqlPersistMPool commands pool
