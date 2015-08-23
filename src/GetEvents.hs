@@ -36,8 +36,8 @@ constructEvent id_ = do
     return $ Event eventid title location time description link (Just image) Nothing
 
 
-fetchEvent :: String -> IO [Event]
-fetchEvent url = do
+fetchPage :: String -> IO [Event]
+fetchPage url = do
     time <- getCurrentTime
     accesstoken <- getOption "kamdanes.accesstoken" :: IO String
     let timeInt = read (formatTime defaultTimeLocale "%s" time) :: Int
@@ -52,6 +52,6 @@ main = timeIt $ do
     places <- getOption "kamdanes.places" :: IO [String]
     runDB connStr $ do
         runMigration migrateAll
-        events <- fmap concat $ liftIO $ mapM fetchEvent places
+        events <- fmap concat $ liftIO $ mapM fetchPage places
         mapM_ insert events
         liftIO $ putStrLn $ "Fetched " ++ show (length events) ++ " events."
