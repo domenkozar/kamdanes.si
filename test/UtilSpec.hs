@@ -15,3 +15,7 @@ spec = do
 
     it "parses dates" $
       (parseFacebookTime "2015-05-05" :: UTCTime) `shouldBe` (parseFacebookTime "2015-05-05T00:00:00-00:00" :: UTCTime)
+
+  describe "replaceRN" $ do
+    it "works" $
+      replaceRN "\r\na\nb\rc" `shouldBe` "<br>a<br>b<br>c"
