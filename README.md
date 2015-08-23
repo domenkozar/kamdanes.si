@@ -7,6 +7,10 @@ Make sure you create `kamdanes.cfg` with following contents:
     kamdanes {
       accesstoken = "<facebook access token>"
       connstr = "dbname=kamdanes user=myuser"
+      places = [
+         "123123/events",
+         "myfavoritebar/events",
+      ]
     }
 
 
@@ -47,7 +51,7 @@ To bootstrap default.ini
 # Restful API
 
 `GET /events`
-    
+
     {
       "events": [
         {

@@ -1,6 +1,5 @@
 module Util where
 
-
 import qualified Data.Configurator as Conf
 import Data.Configurator.Types
 import Data.List

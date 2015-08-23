@@ -21,38 +21,6 @@ import Models
 import Util
 
 
-pages = [
-  "443566369067600/events",
-  "458331344305413/events",
-  "750720064944757/events",
-  "139277969451827/events", -- stara mestna elektrarna
-  "barzmauc/events",
-  "centralnapostajaljubljana/events",
-  "cvetlicarna.mediapark/events",
-  "Fclub.si/events",
-  "GalaHala/events",
-  "gromka/events",
-  "HostelCelica/events",
-  "irishpubljubljana.si/events",
-  "jallajalla.akcmetelkova/events",
-  "KlubDaktari/events",
-  "klubk4/events",
-  "klubmonokel/events",
-  "klubtiffany/events",
-  "lp.bar.1/events",
-  "cirkus.klub/events",
-  "menzaprikoritu/events",
-  "noplacelikeorto/events",
-  "pritlicje/events",
-  "PrulcekBar/events",
-  "PrulcekBar/events",
-  "stacafe/events",
-  --"www.ch0.org/events", https://www.facebook.com/groups/63207442694/
-  "www.kinosiska.si/events",
-  "zootobacna/events"
-  ]
-
-
 constructEvent :: String -> IO Event
 constructEvent id_ = do
     accesstoken <- getOption "kamdanes.accesstoken" :: IO String
@@ -81,8 +49,9 @@ fetchEvent url = do
 main :: IO ()
 main = timeIt $ do
     connStr <- getOption "kamdanes.connstr"
+    places <- getOption "kamdanes.places" :: IO [String]
     runDB connStr $ do
         runMigration migrateAll
-        events <- fmap concat $ liftIO $ mapM fetchEvent pages
+        events <- fmap concat $ liftIO $ mapM fetchEvent places
         mapM_ insert events
         liftIO $ putStrLn $ "Fetched " ++ show (length events) ++ " events."
