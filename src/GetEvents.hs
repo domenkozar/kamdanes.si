@@ -4,7 +4,7 @@
 {-# LANGUAGE OverloadedStrings          #-}
 
 import System.TimeIt
-import Data.Time.Format (readTime, formatTime, defaultTimeLocale)
+import Data.Time.Format (formatTime, defaultTimeLocale)
 import Data.Aeson.Lens
 import Data.Time.Clock
 import Data.Text (unpack, pack)
@@ -61,7 +61,7 @@ constructEvent id_ = do
         eventid = read id_ :: Int
         title = unpack $ body ^. key "name" . _String
         location = unpack $ body ^. key "location" . _String
-        time = readTime defaultTimeLocale "%FT%T+0100" $ unpack $ body ^. key "start_time" . _String
+        time = parseFacebookTime  $ unpack $ body ^. key "start_time" . _String
         description = pack $ replaceRN $ unpack $ body ^. key "description" . _String
         link = "https://www.facebook.com/events/" ++ id_
         image = "https://graph.facebook.com/v2.2/" ++ id_ ++ "/picture?type=large&access_token=" ++ accesstoken
