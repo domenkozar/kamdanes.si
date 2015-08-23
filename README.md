@@ -7,10 +7,8 @@ Make sure you create `kamdanes.cfg` with following contents:
     kamdanes {
       accesstoken = "<facebook access token>"
       connstr = "dbname=kamdanes user=myuser"
-      places = [
-         "123123/events",
-         "myfavoritebar/events",
-      ]
+      places = [ "123123/events",
+                 "myfavoritebar/events" ]
     }
 
 
@@ -20,7 +18,7 @@ Make sure you create `kamdanes.cfg` with following contents:
 
 # Bootstrap
 
-To bootstrap default.ini
+To bootstrap default.nix
 
 - $ nix-shell -p haskellPackages.cabal2nix
 - $ cabal2nix --shell . > default.nix
