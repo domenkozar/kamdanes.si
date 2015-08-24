@@ -52,6 +52,7 @@ executable kamdanes-serve
                      , wai-middleware-static
                      , wai-extra
                      , time
+                     , reserve
 
 executable kamdanes-getevents
   Hs-Source-Dirs: src
