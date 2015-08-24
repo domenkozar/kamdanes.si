@@ -52,14 +52,14 @@ var el = document.getElementById('events'),
               </h5>
               {descriptionNode}
               <button className="btn btn-primary" id={e.id} onClick={self.handleClick}>
-                <span className="glyphicon glyphicon-info-sign"></span> &nbsp;{buttonNode} 
+                <span className="glyphicon glyphicon-info-sign"></span> &nbsp;{buttonNode}
               </button>
             </div>
-          </div>  
+          </div>
         </li>
     );
     });
-    
+
     if (this.props.events.length === 0) {
         eventNodes = (
             <li className="text-center"><i>Ni dogodkov.</i></li>
@@ -68,15 +68,17 @@ var el = document.getElementById('events'),
 
     return (
      <ul className="list-group" style={mainStyle}>
-       <li className="list-unstyled text-center"><h3>Danes v Ljubljani</h3></li>  
+       <li className="list-unstyled text-center"><h3>Danes v Ljubljani</h3></li>
        {eventNodes}
      </ul>
    );
   }
 });
 
-$.get('/events').success(function(data) {
-  React.render(<Events events={data.events} />, el);
-}).fail(function() {
-  el.innerHTML = "<p class='error'>Error with a request</p>";
-});
+module.exports = function () {
+  $.get('/events').success(function(data) {
+    React.render(<Events events={data.events} />, el);
+  }).fail(function() {
+    el.innerHTML = "<p class='error'>Error with a request</p>";
+  });
+}
