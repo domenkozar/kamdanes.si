@@ -37,10 +37,12 @@ events = do
   events <- liftIO $ runDB connStr $ P.selectList [EventTime P.>. addUTCTime (-21600) time] [ P.Asc EventTime ]
   json $ object [ "events" .= events ]
 
+main :: IO ()
 main = do
   connStr <- liftIO $ getOption "kamdanes.connstr"
   liftIO $ runDB connStr $ Postgresql.runMigration migrateAll
   scotty 3000 $ do
+    -- TODO: use logStdout in production
     middleware logStdoutDev
     middleware $ staticPolicy (noDots >-> hasPrefix "static/")
     app

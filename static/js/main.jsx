@@ -4,6 +4,7 @@ require('./jquery.timeago.js')
 require('./jquery.timeago.sl.js')
 require('bootstrap')
 React = require('react/addons')
+
 var el = document.getElementById('events'),
     Events = React.createClass({
   componentDidMount: function() {
