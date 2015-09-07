@@ -1,3 +1,9 @@
+jQuery = require('jquery')
+// TODO: waiting for a release (current 1.4.2)
+require('./jquery.timeago.js')
+require('./jquery.timeago.sl.js')
+require('bootstrap')
+React = require('react/addons')
 var el = document.getElementById('events'),
     Events = React.createClass({
   componentDidMount: function() {
@@ -75,10 +81,8 @@ var el = document.getElementById('events'),
   }
 });
 
-module.exports = function () {
-  $.get('/events').success(function(data) {
-    React.render(<Events events={data.events} />, el);
-  }).fail(function() {
-    el.innerHTML = "<p class='error'>Error with a request</p>";
-  });
-}
+$.get('/events').success(function(data) {
+  React.render(<Events events={data.events} />, el);
+}).fail(function() {
+  el.innerHTML = "<p class='error'>Error with a request</p>";
+});

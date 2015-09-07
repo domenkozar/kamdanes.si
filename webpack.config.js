@@ -4,7 +4,7 @@ module.exports = {
   entry: './static/js/main.jsx',
   output: {
     path: './static/js',
-    filename: 'main.js'
+    filename: 'bundle.js'
   },
   module: {
     loaders: [{
@@ -13,7 +13,15 @@ module.exports = {
       loader: 'jsx'
     }]
   },
+  resolve: {
+    modulesDirectories: ['node_modules'],
+  },
   plugins: [
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+      })
   ]
 };

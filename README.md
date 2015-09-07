@@ -35,7 +35,7 @@ To bootstrap default.nix
 
 # Build static assets
 
-- $ npm install webpack jsx-loader
+- $ npm install webpack jsx-loader bootstrap jquery react
 - $ ./node_modules/.bin/webpack --watch
 
 
