@@ -24,7 +24,7 @@ import Util
 constructEvent :: String -> IO Event
 constructEvent id_ = do
     accesstoken <- getOption "kamdanes.accesstoken" :: IO String
-    r <- liftIO $ Wreq.get $ "https://graph.facebook.com/v2.2/" ++ id_ ++ "?access_token=" ++ accesstoken
+    r <- liftIO $ Wreq.get $ "https://graph.facebook.com/v2.4/" ++ id_ ++ "?access_token=" ++ accesstoken
     let body = r ^. responseBody
         eventid = read id_ :: Int
         title = unpack $ body ^. key "name" . _String
@@ -32,7 +32,7 @@ constructEvent id_ = do
         time = parseFacebookTime  $ unpack $ body ^. key "start_time" . _String
         description = pack $ replaceRN $ unpack $ body ^. key "description" . _String
         link = "https://www.facebook.com/events/" ++ id_
-        image = "https://graph.facebook.com/v2.2/" ++ id_ ++ "/picture?type=large&access_token=" ++ accesstoken
+        image = "https://graph.facebook.com/v2.4/" ++ id_ ++ "/picture?type=large&access_token=" ++ accesstoken
     return $ Event eventid title location time description link (Just image) Nothing
 
 
@@ -41,7 +41,7 @@ fetchPage url = do
     time <- getCurrentTime
     accesstoken <- getOption "kamdanes.accesstoken" :: IO String
     let timeInt = read (formatTime defaultTimeLocale "%s" time) :: Int
-    r <- Wreq.get $ "https://graph.facebook.com/v2.2/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ show timeInt ++ "&until=" ++ show (timeInt + 86400)
+    r <- Wreq.get $ "https://graph.facebook.com/v2.4/" ++ url ++ "?access_token=" ++ accesstoken ++ "&since=" ++ show timeInt ++ "&until=" ++ show (timeInt + 86400)
     let ids = r ^. responseBody ^.. key "data" . _Array . traverse . to (\o -> o ^?! key "id" . _String)
     mapM (constructEvent . unpack) ids
 
