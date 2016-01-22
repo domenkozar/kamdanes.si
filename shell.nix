@@ -1,4 +1,4 @@
-{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghc7102" }:
+{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghc7103" }:
 
 let
    overrideCabal = drv: f: drv.override (args: args // {
@@ -6,6 +6,6 @@ let
    });
    kamdanes = import ./default.nix { };
 in (overrideCabal kamdanes (drv: {
-    libraryHaskellDepends = drv.libraryHaskellDepends ++ [ nixpkgs.pkgs.haskell.packages.ghc7102.reserve ];
-    executableHaskellDepends = drv.executableHaskellDepends ++ [ nixpkgs.pkgs.haskell.packages.ghc7102.reserve ];
+    libraryHaskellDepends = drv.libraryHaskellDepends ++ [ nixpkgs.pkgs.haskell.packages."${compiler}".reserve ];
+    executableHaskellDepends = drv.executableHaskellDepends ++ [ nixpkgs.pkgs.haskell.packages."${compiler}".reserve ];
 })).env
