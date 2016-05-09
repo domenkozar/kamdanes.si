@@ -33,10 +33,10 @@ To bootstrap default.nix
 - $ result/bin/kamdanes-serve
 - $ result/bin/kamdanes-getevents
 
-# Build static assets
+# Build frontend
 
-- $ npm install webpack jsx-loader bootstrap jquery react
-- $ ./node_modules/.bin/webpack --watch
+- $ cd frontend
+- $ nix-shell --run "npm i && npm run dev"
 
 
 # Restful API
