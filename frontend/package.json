@@ -1,0 +1,27 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "kamdanes.si frontend",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "css-loader": "^0.23.1",
+    "elm-webpack-loader": "^2.0.1",
+    "jquery": "^2.2.3",
+    "file-loader": "^0.8.5",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.0",
+    "style-loader": "^0.13.1",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "dev": "webpack-dev-server --port 3000"
+  },
+  "author": "Domen Kozar",
+  "license": "ISC"
+}
