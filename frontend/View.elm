@@ -7,6 +7,7 @@ import Json.Encode exposing (string)
 import Date
 import Result
 import Maybe
+import String exposing (padLeft)
 
 import Actions exposing (..)
 import Models exposing (..)
@@ -64,9 +65,9 @@ view model =
 viewEvent : Event -> Html Msg
 viewEvent event =
   let
+    padZero = padLeft 2 '0' << toString
     time = case event.time of
-      -- TODO: hour is am/pm
-      Ok value -> toString (Date.hour value) ++ ":" ++ toString (Date.minute value)
+      Ok value -> padZero (Date.hour value) ++ ":" ++ padZero (Date.minute value)
       Err msg -> msg
   in
   li
@@ -103,7 +104,7 @@ viewEvent event =
             []
             [ i
               []
-              [ text "Začetek: "
+              [ text "Začetek ob "
               -- TODO: timeago
               , text time ]
             , span
