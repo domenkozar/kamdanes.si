@@ -1,4 +1,5 @@
-{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghc7103" }:
+{ nixpkgs ? import (fetchTarball https://github.com/NixOS/nixpkgs/archive/6b9c67333fe62c38f1231dd5339b776c7c3d7172.tar.gz) {}
+, compiler ? "ghc7103" }:
 
 let
    overrideCabal = drv: f: drv.override (args: args // {
