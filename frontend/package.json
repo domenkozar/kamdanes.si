@@ -18,7 +18,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "webpack --bail",
     "watch": "webpack --watch",
     "dev": "webpack-dev-server --port 3000"
   },
