@@ -6,12 +6,12 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "css-loader": "^0.23.1",
-    "elm-webpack-loader": "^2.0.1",
+    "elm-webpack-loader": "rtfeldman/elm-webpack-loader",
     "jquery": "^2.2.3",
     "file-loader": "^0.8.5",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.0",
     "style-loader": "^0.13.1",
+    "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1"
   },

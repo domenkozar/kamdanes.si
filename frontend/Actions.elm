@@ -1,11 +1,11 @@
-module Actions (..) where
+module Actions exposing (..)
 
-import Models exposing (..)
 import Http
-
+import Models exposing (..)
 
 type alias EventID = Int
 
-type Action
-  = NewEvents (Result Http.Error (List Event))
+type Msg
+  = FetchSucceed (List Event)
+  | FetchFail Http.Error
   | ToggleDescription EventID

@@ -1,9 +1,7 @@
-module Main (..) where
+module Main exposing (..)
 
-import Html exposing (..)
-import Effects exposing (Effects, Never)
+import Html.App as Html
 import Task
-import StartApp
 import Http
 import Json.Decode as Json
 import Json.Decode exposing ((:=))
@@ -16,16 +14,13 @@ import Update exposing (..)
 import View exposing (..)
 
 
-init : ( AppModel, Effects Action )
+init : ( AppModel, Cmd Msg )
 init = ( initialModel, getEvents )
 
 
-getEvents : Effects Action
+getEvents : Cmd Msg
 getEvents =
-  Http.get decodeEvent "/events"
-    |> Task.toResult
-    |> Task.map NewEvents
-    |> Effects.task
+  Task.perform FetchFail FetchSucceed (Http.get decodeEvent "/events")
 
 
 decodeEvent : Json.Decoder (List Event)
@@ -49,21 +44,16 @@ decodeTime time =
     Date.fromString time
       |> Json.succeed
 
-app : StartApp.App AppModel
-app =
-  StartApp.start
+
+main : Program Never
+main =
+  Html.program
     { init = init
     , update = update
     , view = view
-    , inputs = []
+    , subscriptions = subscriptions
     }
 
-
-main : Signal.Signal Html
-main =
-  app.html
-
-
-port runner : Signal (Task.Task Never ())
-port runner =
-  app.tasks
+subscriptions : AppModel -> Sub Msg
+subscriptions model =
+  Sub.none

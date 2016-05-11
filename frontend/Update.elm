@@ -1,19 +1,20 @@
-module Update (..) where
+module Update exposing (..)
 
 import List
-import Effects exposing (Effects)
 
 import Models exposing (..)
 import Actions exposing (..)
 
 
-update : Action -> AppModel -> ( AppModel, Effects Action )
+update : Msg -> AppModel -> ( AppModel, Cmd Msg )
 update action model =
   case action of
-    NewEvents result ->
-      case result of
-        Ok events -> ( AppModel (Ok events), Effects.none )
-        Err httpCode -> ( AppModel (Err (toString httpCode)), Effects.none )
+    FetchSucceed events ->
+      ( AppModel (Ok events), Cmd.none )
+
+    FetchFail msg ->
+      ( AppModel (Err (toString msg)), Cmd.none )
+
     ToggleDescription eventID ->
       case model.events of
         Ok events ->
@@ -23,5 +24,5 @@ update action model =
               then {event | showDescription = not event.showDescription}
               else event
             newevents = List.map toggleEvent events
-          in ( AppModel (Ok newevents), Effects.none )
-        Err msg -> ( AppModel (Err msg), Effects.none )
+          in ( AppModel (Ok newevents), Cmd.none )
+        Err msg -> ( AppModel (Err msg), Cmd.none )

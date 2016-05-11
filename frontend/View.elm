@@ -1,4 +1,4 @@
-module View (..) where
+module View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -17,10 +17,10 @@ resultWithDefault default result =
     |> Maybe.withDefault default
 
 
-view : Signal.Address Action -> AppModel -> Html
-view address model =
+view : AppModel -> Html Msg
+view model =
   let
-    items = List.map (viewEvent address) (resultWithDefault [] model.events)
+    items = List.map viewEvent (resultWithDefault [] model.events)
     userMsg = case model.events of
       Ok value -> "Ni dogodkov :("
       Err "Loading" -> "Loading ..."
@@ -61,8 +61,8 @@ view address model =
     ]
 
 
-viewEvent : Signal.Address Action -> Event -> Html
-viewEvent address event =
+viewEvent : Event -> Html Msg
+viewEvent event =
   let
     time = case event.time of
       -- TODO: hour is am/pm
@@ -111,7 +111,7 @@ viewEvent address event =
               [] -- TODO: if price
             ]
           , button
-            [ (onClick address (ToggleDescription event.id))
+            [ (onClick (ToggleDescription event.id))
             , class "btn btn-primary" ]
             [ span
               [ class "glyphicon glyphicon-info-sign" ]
