@@ -1,4 +1,5 @@
-/dist/
+dist/
 result*
 kamdanes.cfg
-/node_modules/
+node_modules/
+elm-stuff/
