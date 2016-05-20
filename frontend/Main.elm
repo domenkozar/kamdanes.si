@@ -20,7 +20,7 @@ init = ( initialModel, getEvents )
 
 getEvents : Cmd Msg
 getEvents =
-  Task.perform FetchFail FetchSucceed (Http.get decodeEvent "/events")
+  Task.perform FetchFail FetchSucceed (Http.get decodeEvent "/api/events")
 
 
 decodeEvent : Json.Decoder (List Event)
